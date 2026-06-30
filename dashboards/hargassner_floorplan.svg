@@ -1,0 +1,133 @@
+<svg viewBox="0 0 1280 700" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8a1a"/><stop offset="1" stop-color="#c81c1c"/></linearGradient>
+    <linearGradient id="tk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8857a"/><stop offset="0.5" stop-color="#e9d9c8"/><stop offset="1" stop-color="#9fb6e6"/></linearGradient>
+    <style>
+      .box { fill: #f5f6f8; stroke: #c8ccd2; }
+      .title { font-size: 16px; font-weight: bold; fill: #333; text-anchor: middle; }
+      .lbl { font-size: 12px; fill: #888; }
+      .lbl-t { font-size: 12px; fill: #7a6a58; }
+      .val { font-size: 15px; fill: #555; text-anchor: middle; }
+      .val-lg { font-size: 18px; font-weight: bold; fill: #444; text-anchor: middle; }
+      .val-xl { font-size: 24px; font-weight: bold; text-anchor: middle; }
+      .state { font-size: 13px; fill: #333; text-anchor: middle; }
+      .pump { fill: #dfe3ea; stroke: #a8aeb8; stroke-width: 2; }
+      .pump-on { fill: #34a853; }
+      .pump-off { fill: #cfd4db; }
+      .hidden { display: none; }
+      .flame-off { opacity: 0.15; }
+      text { cursor: default; }
+      [id] { cursor: pointer; }
+    </style>
+  </defs>
+
+  <!-- ===== Außen ===== -->
+  <g>
+    <rect x="40" y="30" width="190" height="70" rx="12" class="box"/>
+    <circle cx="76" cy="65" r="16" fill="#ffd24d" stroke="#e0a300"/>
+    <text x="104" y="58" class="lbl">Außen</text>
+    <text id="aussen" x="150" y="84" class="val-lg">–</text>
+  </g>
+
+  <!-- ===== Pelletlager ===== -->
+  <g>
+    <rect x="40" y="150" width="205" height="370" rx="14" class="box"/>
+    <text x="142" y="178" class="title">Pelletlager</text>
+    <polygon points="62,250 230,250 208,420 84,420" fill="#d8a24a" stroke="#b9863a"/>
+    <g fill="#a9742c">
+      <circle cx="100" cy="290" r="4"/><circle cx="135" cy="300" r="4"/><circle cx="175" cy="292" r="4"/><circle cx="120" cy="330" r="4"/><circle cx="160" cy="340" r="4"/><circle cx="195" cy="325" r="4"/><circle cx="110" cy="370" r="4"/><circle cx="150" cy="378" r="4"/><circle cx="185" cy="368" r="4"/>
+    </g>
+    <text x="142" y="452" class="lbl">Lagerstand</text>
+    <text id="pl_lager" x="142" y="476" class="val-lg" fill="#9a6a1a">–</text>
+    <text id="pl_fuell" x="142" y="500" class="lbl">–</text>
+  </g>
+  <!-- Förderschnecke Pelletlager -> Kessel -->
+  <g>
+    <rect x="228" y="372" width="120" height="24" rx="12" fill="#cdd2da" stroke="#a8aeb8" transform="rotate(-20 228 384)"/>
+    <g stroke="#9097a3" stroke-width="2" transform="rotate(-20 228 384)">
+      <line x1="244" y1="374" x2="244" y2="394"/><line x1="264" y1="374" x2="264" y2="394"/><line x1="284" y1="374" x2="284" y2="394"/><line x1="304" y1="374" x2="304" y2="394"/><line x1="324" y1="374" x2="324" y2="394"/>
+    </g>
+  </g>
+
+  <!-- ===== Kessel ===== -->
+  <g>
+    <rect x="300" y="150" width="235" height="250" rx="14" class="box"/>
+    <text x="417" y="178" class="title">Kessel</text>
+    <path id="k_flame" d="M390 320 q-26 -28 -6 -58 q6 22 20 20 q-14 -26 8 -48 q-2 26 16 30 q18 -10 10 -34 q30 26 12 64 q14 -2 14 -18 q16 30 -14 56 z" fill="url(#fl)" opacity="0.92"/>
+    <text x="364" y="252" class="lbl" text-anchor="end">Soll</text>
+    <text x="364" y="280" class="lbl" text-anchor="end">Last</text>
+    <text x="364" y="308" class="lbl" text-anchor="end">Rauchg.</text>
+    <text id="k_temp" x="417" y="226" class="val-xl" fill="#c81c1c">–</text>
+    <text id="k_soll" x="432" y="252" class="val">–</text>
+    <text id="k_last" x="432" y="280" class="val">–</text>
+    <text id="k_rauchgas" x="432" y="308" class="val">–</text>
+    <text id="k_zustand" x="417" y="356" class="state">–</text>
+    <text id="k_stoer" x="417" y="384" class="lbl">Störung –</text>
+  </g>
+
+  <!-- ===== Heizkreis 1 (direkt am Kessel) ===== -->
+  <g id="g_hk1">
+    <g fill="none" stroke-width="7" stroke-linecap="round">
+      <path d="M400 400 V440" stroke="#e2543a"/>
+      <path d="M435 440 V400" stroke="#3a78e2"/>
+    </g>
+    <rect x="300" y="440" width="235" height="180" rx="14" class="box"/>
+    <text x="417" y="468" class="title">Heizkreis 1</text>
+    <g stroke="#b0b6c0" stroke-width="4">
+      <line x1="340" y1="560" x2="340" y2="605"/><line x1="360" y1="560" x2="360" y2="605"/><line x1="380" y1="560" x2="380" y2="605"/><line x1="400" y1="560" x2="400" y2="605"/><line x1="420" y1="560" x2="420" y2="605"/>
+    </g>
+    <circle id="hk1_pump" cx="470" cy="582" r="13" class="pump"/>
+    <text x="362" y="512" class="lbl" text-anchor="end">Raum</text>
+    <text id="hk1_vl" x="417" y="512" class="val-lg" fill="#c81c1c">–</text>
+    <text id="hk1_raum" x="450" y="512" class="val">–</text>
+    <text id="hk1_zustand" x="417" y="540" class="state">–</text>
+  </g>
+
+  <!-- ===== Zentralpuffer ===== -->
+  <g id="g_puffer">
+    <g fill="none" stroke-width="7" stroke-linecap="round">
+      <path d="M535 250 H600 V210 H620" stroke="#e2543a"/>
+      <path d="M620 430 H600 V390 H535" stroke="#3a78e2"/>
+    </g>
+    <rect x="620" y="120" width="180" height="440" rx="22" fill="url(#tk)" stroke="#b9ada0"/>
+    <text x="710" y="108" class="title">Zentralpuffer</text>
+    <line x1="620" y1="260" x2="800" y2="260" stroke="#cdbfae" stroke-dasharray="6 6"/>
+    <line x1="620" y1="420" x2="800" y2="420" stroke="#cdbfae" stroke-dasharray="6 6"/>
+    <text x="636" y="172" class="lbl-t">oben</text>
+    <text x="636" y="345" class="lbl-t">mitte</text>
+    <text x="636" y="510" class="lbl-t">unten</text>
+    <text id="p_oben" x="752" y="176" class="val" fill="#b5453a">–</text>
+    <text id="p_mitte" x="752" y="349" class="val" fill="#9a7d6a">–</text>
+    <text id="p_unten" x="752" y="514" class="val" fill="#3a78e2">–</text>
+    <text id="p_grad" x="710" y="544" class="state">–</text>
+  </g>
+
+  <!-- ===== Frischwasserstation 1 ===== -->
+  <g id="g_fws1">
+    <g fill="none" stroke-width="7" stroke-linecap="round">
+      <path d="M800 200 H865 V190 H920" stroke="#e2543a"/>
+      <path d="M920 240 H880 V300 H800" stroke="#3a78e2"/>
+    </g>
+    <rect x="920" y="135" width="320" height="175" rx="14" class="box"/>
+    <text x="1080" y="162" class="title">Frischwasserstation 1</text>
+    <path d="M965 198 h40 l10 -16 l16 32 l16 -32 l16 32 l16 -32 l10 16 h40" fill="none" stroke="#c0566a" stroke-width="4"/>
+    <circle cx="1150" cy="250" r="16" class="pump"/>
+    <text x="1150" y="284" class="lbl-t" text-anchor="middle">Zirku</text>
+    <text x="975" y="246" class="lbl">Auslauf</text>
+    <text id="fws1_ist" x="1045" y="248" class="val-lg" fill="#c0566a">–</text>
+    <text x="975" y="282" class="lbl">Durchfl.</text>
+    <text id="fws1_fluss" x="1055" y="282" class="val" fill="#3a78e2">–</text>
+  </g>
+
+  <!-- ===== Boiler 1 ===== -->
+  <g id="g_boiler1">
+    <g fill="none" stroke-width="7" stroke-linecap="round">
+      <path d="M800 430 H900 V420 H960" stroke="#e2543a"/>
+      <path d="M960 470 H920 V520 H800" stroke="#3a78e2"/>
+    </g>
+    <rect x="960" y="400" width="270" height="180" rx="14" class="box"/>
+    <text x="1095" y="428" class="title">Boiler 1</text>
+    <text x="1010" y="486" class="lbl">Soll</text>
+    <text id="b1_soll" x="1110" y="488" class="val-lg" fill="#c0566a">–</text>
+  </g>
+</svg>

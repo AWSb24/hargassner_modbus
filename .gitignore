@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# OEM / working material — not for distribution
+*.pdf
+MODBUS2.CSV
+flows.json
+_*.txt
+_*.svg
+
+# Local agent / editor
+.claude/
+.vscode/
+.idea/

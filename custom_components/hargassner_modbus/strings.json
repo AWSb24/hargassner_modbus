@@ -1,0 +1,70 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Hargassner Modbus TCP",
+        "description": "Enter the IP address and Modbus TCP port of the heating controller.",
+        "data": {
+          "host": "IP address",
+          "port": "Port",
+          "slave": "Modbus unit/slave ID"
+        }
+      },
+      "preset": {
+        "title": "Choose scope",
+        "description": "Automatic: all categories, but only components that are actually installed are created (recommended). Basis: boiler/buffer/weather only. Full: literally every register. Custom: pick categories and entities yourself.",
+        "data": {
+          "preset": "Preset"
+        }
+      },
+      "categories": {
+        "title": "Select categories",
+        "description": "Choose the register categories relevant to your installation. Not-installed components are hidden automatically.",
+        "data": {
+          "enabled_categories": "Categories",
+          "customize_entities": "Pick individual entities (next step)"
+        }
+      },
+      "entities": {
+        "title": "Select entities",
+        "description": "All entities of the chosen categories are pre-selected. Remove the ones you don't need.",
+        "data": {
+          "entities": "Active entities"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not connect to the controller."
+    },
+    "abort": {
+      "already_configured": "This controller is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Hargassner options",
+        "description": "Adjust the preset and polling interval.",
+        "data": {
+          "preset": "Preset",
+          "scan_interval": "Polling interval (seconds)"
+        }
+      },
+      "categories": {
+        "title": "Select categories",
+        "description": "Custom preset only: choose register categories.",
+        "data": {
+          "enabled_categories": "Categories",
+          "customize_entities": "Pick individual entities (next step)"
+        }
+      },
+      "entities": {
+        "title": "Select entities",
+        "description": "All entities of the chosen categories are pre-selected. Remove the ones you don't need.",
+        "data": {
+          "entities": "Active entities"
+        }
+      }
+    }
+  }
+}

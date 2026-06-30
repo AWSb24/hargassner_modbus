@@ -1,0 +1,103 @@
+# Hargassner Anlagenschema – Floorplan card (HACS: ExperienceLovelace/ha-floorplan)
+#
+# 1) Install "Floorplan" via HACS (Frontend).
+# 2) Copy hargassner_floorplan.svg to  config/www/hargassner/hargassner_floorplan.svg
+# 3) Add a Manual card with this YAML (or use it as a view).
+#
+# Entity IDs assume the device is named "Hargassner Heizung" (default). If you
+# renamed it, adjust the prefix. Component blocks auto-hide when their master
+# register reads "Nicht vorhanden" (works great with the "Automatisch" preset).
+type: custom:floorplan-card
+config:
+  image: /local/hargassner/hargassner_floorplan.svg
+  defaults:
+    hover_action: hover-info
+    tap_action: more-info
+
+  rules:
+    # ---------- values ----------
+    - entity: sensor.hargassner_heizung_aussentemperatur
+      element: aussen
+      state_action: { action: call-service, service: floorplan.text_set, service_data: '${entity.state} °C' }
+
+    - entity: sensor.hargassner_heizung_lagerstand_brennstoff
+      element: pl_lager
+      state_action: { action: call-service, service: floorplan.text_set, service_data: '${entity.state} kg' }
+    - entity: binary_sensor.hargassner_heizung_fuellstand_pellets
+      element: pl_fuell
+      state_action: { action: call-service, service: floorplan.text_set, service_data: '${entity.state === "on" ? "Füllstand: voll" : "Füllstand: leer"}' }
+
+    - entity: sensor.hargassner_heizung_kesseltemperatur
+      element: k_temp
+      state_action: { action: call-service, service: floorplan.text_set, service_data: '${entity.state} °C' }
+    - entity: sensor.hargassner_heizung_kessel_solltemperatur
+      element: k_soll
+      state_action: { action: call-service, service: floorplan.text_set, service_data: '${entity.state} °C' }
+    - entity: sensor.hargassner_heizung_kesselleistung
+      element: k_last
+      state_action: { action: call-service, service: floorplan.text_set, service_data: '${entity.state} %' }
+    - entity: sensor.hargassner_heizung_rauchgastemperatur
+      element: k_rauchgas
+      state_action: { action: call-service, service: floorplan.text_set, service_data: '${entity.state} °C' }
+    - entity: sensor.hargassner_heizung_kesselzustand_pk
+      element: k_zustand
+      state_action: { action: call-service, service: floorplan.text_set, service_data: '${entity.state}' }
+    - entity: sensor.hargassner_heizung_aktuelle_stoerungsnummer
+      element: k_stoer
+      state_action: { action: call-service, service: floorplan.text_set, service_data: 'Störung ${entity.state}' }
+
+    - entity: sensor.hargassner_heizung_vorlauftemperatur_heizkreis_1
+      element: hk1_vl
+      state_action: { action: call-service, service: floorplan.text_set, service_data: '${entity.state} °C' }
+    - entity: sensor.hargassner_heizung_raumfuehler_heizkreis_1
+      element: hk1_raum
+      state_action: { action: call-service, service: floorplan.text_set, service_data: '${entity.state} °C' }
+    - entity: sensor.hargassner_heizung_zustand_heizkreis_1
+      element: hk1_zustand
+      state_action: { action: call-service, service: floorplan.text_set, service_data: '${entity.state}' }
+
+    - entity: sensor.hargassner_heizung_puffertemperatur_oben
+      element: p_oben
+      state_action: { action: call-service, service: floorplan.text_set, service_data: '${entity.state}' }
+    - entity: sensor.hargassner_heizung_puffertemperatur_mitte
+      element: p_mitte
+      state_action: { action: call-service, service: floorplan.text_set, service_data: '${entity.state}' }
+    - entity: sensor.hargassner_heizung_puffertemperatur_unten
+      element: p_unten
+      state_action: { action: call-service, service: floorplan.text_set, service_data: '${entity.state}' }
+    - entity: sensor.hargassner_heizung_pufferfuellgrad_zentralpuffer
+      element: p_grad
+      state_action: { action: call-service, service: floorplan.text_set, service_data: 'Füllgrad ${entity.state} %' }
+
+    - entity: sensor.hargassner_heizung_fws_1_isttemperatur
+      element: fws1_ist
+      state_action: { action: call-service, service: floorplan.text_set, service_data: '${entity.state} °C' }
+    - entity: sensor.hargassner_heizung_fws_1_durchfluss
+      element: fws1_fluss
+      state_action: { action: call-service, service: floorplan.text_set, service_data: '${entity.state} l/min' }
+
+    - entity: sensor.hargassner_heizung_boiler_1_solltemperatur
+      element: b1_soll
+      state_action: { action: call-service, service: floorplan.text_set, service_data: '${entity.state} °C' }
+
+    # ---------- component visibility (master = "Nicht vorhanden" -> hide) ----------
+    - entity: sensor.hargassner_heizung_heizkreis_1
+      element: g_hk1
+      state_action: { action: call-service, service: floorplan.class_set, service_data: '${entity.state === "Nicht vorhanden" ? "hidden" : ""}' }
+    - entity: select.hargassner_heizung_zentralpuffer
+      element: g_puffer
+      state_action: { action: call-service, service: floorplan.class_set, service_data: '${entity.state === "Nicht vorhanden" ? "hidden" : ""}' }
+    - entity: sensor.hargassner_heizung_frischwasserstation_1
+      element: g_fws1
+      state_action: { action: call-service, service: floorplan.class_set, service_data: '${entity.state === "Nicht vorhanden" ? "hidden" : ""}' }
+    - entity: sensor.hargassner_heizung_boiler_1
+      element: g_boiler1
+      state_action: { action: call-service, service: floorplan.class_set, service_data: '${entity.state === "Nicht vorhanden" ? "hidden" : ""}' }
+
+    # ---------- status colours ----------
+    - entity: binary_sensor.hargassner_heizung_pumpe_heizkreis_1
+      element: hk1_pump
+      state_action: { action: call-service, service: floorplan.class_set, service_data: '${entity.state === "on" ? "pump pump-on" : "pump pump-off"}' }
+    - entity: sensor.hargassner_heizung_kesselzustand_pk
+      element: k_flame
+      state_action: { action: call-service, service: floorplan.class_set, service_data: '${entity.state === "Aus" || entity.state === "Bereit" ? "flame-off" : ""}' }

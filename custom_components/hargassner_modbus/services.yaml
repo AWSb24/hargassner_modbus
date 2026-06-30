@@ -1,0 +1,38 @@
+set_schedule:
+  name: Set schedule
+  description: >-
+    Write a Hargassner Tages-/Wochenuhr (TPROG/WPROG) schedule. Only the fields
+    you provide are changed; the rest keep their current value. Use 00:00 for
+    both start and stop of a window to disable it.
+  target:
+    entity:
+      integration: hargassner_modbus
+      domain: sensor
+  fields:
+    start_1:
+      name: Start 1
+      description: Start time of window 1.
+      selector:
+        time:
+    stop_1:
+      name: Stop 1
+      description: Stop time of window 1.
+      selector:
+        time:
+    start_2:
+      name: Start 2
+      description: Start time of window 2 (optional second window).
+      selector:
+        time:
+    stop_2:
+      name: Stop 2
+      description: Stop time of window 2.
+      selector:
+        time:
+    days:
+      name: Weekdays
+      description: Weekdays the block applies to (Wochenuhr only).
+      selector:
+        select:
+          multiple: true
+          options: ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]

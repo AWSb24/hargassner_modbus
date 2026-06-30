@@ -1,0 +1,70 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Hargassner Modbus TCP",
+        "description": "IP-Adresse und Modbus-TCP-Port der Heizungssteuerung eingeben.",
+        "data": {
+          "host": "IP-Adresse",
+          "port": "Port",
+          "slave": "Modbus Unit-/Slave-ID"
+        }
+      },
+      "preset": {
+        "title": "Umfang wählen",
+        "description": "Automatisch: alle Kategorien, aber nur tatsächlich vorhandene Komponenten werden angelegt (empfohlen). Basis: nur Kessel/Zentralpuffer/Witterung. Komplett: wirklich alle Register. Benutzerdefiniert: Kategorien und Entitäten selbst wählen.",
+        "data": {
+          "preset": "Preset"
+        }
+      },
+      "categories": {
+        "title": "Kategorien auswählen",
+        "description": "Wähle die Register-Kategorien, die für deine Anlage relevant sind. Nicht vorhandene Komponenten werden automatisch ausgeblendet.",
+        "data": {
+          "enabled_categories": "Kategorien",
+          "customize_entities": "Einzelne Entitäten anpassen (nächster Schritt)"
+        }
+      },
+      "entities": {
+        "title": "Entitäten auswählen",
+        "description": "Alle Entitäten der gewählten Kategorien sind vorausgewählt. Entferne, was du nicht brauchst.",
+        "data": {
+          "entities": "Aktive Entitäten"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Verbindung zur Steuerung nicht möglich."
+    },
+    "abort": {
+      "already_configured": "Diese Steuerung ist bereits eingerichtet."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Hargassner Optionen",
+        "description": "Preset und Abfrageintervall anpassen.",
+        "data": {
+          "preset": "Preset",
+          "scan_interval": "Abfrageintervall (Sekunden)"
+        }
+      },
+      "categories": {
+        "title": "Kategorien auswählen",
+        "description": "Nur für Benutzerdefiniert: Register-Kategorien wählen.",
+        "data": {
+          "enabled_categories": "Kategorien",
+          "customize_entities": "Einzelne Entitäten anpassen (nächster Schritt)"
+        }
+      },
+      "entities": {
+        "title": "Entitäten auswählen",
+        "description": "Alle Entitäten der gewählten Kategorien sind vorausgewählt. Entferne, was du nicht brauchst.",
+        "data": {
+          "entities": "Aktive Entitäten"
+        }
+      }
+    }
+  }
+}
