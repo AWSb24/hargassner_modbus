@@ -23,3 +23,6 @@ jobs:
       - uses: hacs/action@main
         with:
           category: integration
+          # brand assets live in the separate home-assistant/brands PR; skip
+          # this check until that is merged.
+          ignore: brands
