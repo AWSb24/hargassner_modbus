@@ -4,7 +4,7 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/), and this project adheres to
 [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.2.0] - 2026-07-02
 
 ### Added
 - Options: **configurable pause between individual Modbus reads** (request delay,
@@ -32,4 +32,5 @@ Initial release.
 - Delayed refresh after writes so new values appear quickly.
 - Floorplan dashboard (under `dashboards/`) that adapts to the installation.
 
+[0.2.0]: https://github.com/AWSb24/hargassner_modbus/releases/tag/v0.2.0
 [0.1.0]: https://github.com/AWSb24/hargassner_modbus/releases/tag/v0.1.0
