@@ -12,6 +12,7 @@ CONF_EXCLUDED_KEYS = "excluded_keys"
 CONF_CUSTOMIZE_ENTITIES = "customize_entities"
 CONF_PRESET = "preset"
 CONF_GATE_FILTER = "gate_filter"
+CONF_REQUEST_DELAY = "request_delay"  # milliseconds between single Modbus reads
 
 # Config-flow presets (step 2).
 PRESET_AUTO = "auto"          # all categories, only installed components (gate-filtered)
@@ -23,6 +24,7 @@ PRESETS = [PRESET_AUTO, PRESET_BASIS, PRESET_FULL, PRESET_CUSTOM]
 DEFAULT_PORT = 502
 DEFAULT_SLAVE = 1
 DEFAULT_SCAN_INTERVAL = 30  # seconds
+DEFAULT_REQUEST_DELAY = 0  # milliseconds between single reads (0 = back-to-back)
 WRITE_REFRESH_DELAY = 10  # seconds; re-read after a write so the new state shows quickly
 
 PLATFORMS = ["sensor", "binary_sensor", "select", "number"]

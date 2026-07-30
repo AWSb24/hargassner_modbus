@@ -44,10 +44,11 @@
     "step": {
       "init": {
         "title": "Hargassner Optionen",
-        "description": "Preset und Abfrageintervall anpassen.",
+        "description": "Preset, Abfrageintervall und Pause zwischen den Register-Abfragen anpassen.",
         "data": {
           "preset": "Preset",
-          "scan_interval": "Abfrageintervall (Sekunden)"
+          "scan_interval": "Abfrageintervall (Sekunden)",
+          "request_delay": "Pause zwischen Abfragen (Millisekunden, 0 = keine)"
         }
       },
       "categories": {

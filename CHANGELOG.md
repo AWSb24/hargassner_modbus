@@ -4,6 +4,12 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/), and this project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- Options: **configurable pause between individual Modbus reads** (request delay,
+  0–1000 ms; 0 = back-to-back as before) to relieve sensitive controllers.
+
 ## [0.1.0] - 2026-07-01
 
 Initial release.

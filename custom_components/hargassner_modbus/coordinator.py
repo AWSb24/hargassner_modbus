@@ -1,6 +1,7 @@
 """DataUpdateCoordinator that polls the Hargassner controller."""
 from __future__ import annotations
 
+import asyncio
 import logging
 from datetime import timedelta
 
@@ -33,6 +34,7 @@ class HargassnerCoordinator(DataUpdateCoordinator[dict[str, object]]):
         registers: list[RegisterDef],
         scan_interval: int,
         gate_filter: bool = True,
+        request_delay: float = 0.0,
     ) -> None:
         super().__init__(
             hass,
@@ -43,6 +45,8 @@ class HargassnerCoordinator(DataUpdateCoordinator[dict[str, object]]):
         self.config_entry = entry
         self.hub = hub
         self.registers = registers
+        # optional pause (seconds) between individual reads to relieve the controller
+        self._request_delay = request_delay
         # When True, only entities of installed components (gate active) are
         # created; when False, every selected register gets an entity.
         self.gate_filter = gate_filter
@@ -81,6 +85,7 @@ class HargassnerCoordinator(DataUpdateCoordinator[dict[str, object]]):
         data: dict[str, object] = {}
         gate_active: dict[str, bool] = {}
         ok = conn_errors = skipped = 0
+        attempted = False
 
         for reg in self._read_order:
             if not self._gate_allows_read(reg, data, gate_active):
@@ -89,6 +94,9 @@ class HargassnerCoordinator(DataUpdateCoordinator[dict[str, object]]):
                 skipped += 1
                 continue
             gate_active[reg.key] = True
+            if self._request_delay and attempted:
+                await asyncio.sleep(self._request_delay)  # pause between reads
+            attempted = True
             try:
                 raw = await self.hub.read_block(reg.address, reg.count)
             except ModbusDataError:

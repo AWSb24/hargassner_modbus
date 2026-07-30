@@ -44,10 +44,11 @@
     "step": {
       "init": {
         "title": "Hargassner options",
-        "description": "Adjust the preset and polling interval.",
+        "description": "Adjust the preset, polling interval and pause between register reads.",
         "data": {
           "preset": "Preset",
-          "scan_interval": "Polling interval (seconds)"
+          "scan_interval": "Polling interval (seconds)",
+          "request_delay": "Pause between reads (milliseconds, 0 = none)"
         }
       },
       "categories": {

@@ -36,9 +36,11 @@ from .const import (
     CONF_HOST,
     CONF_PORT,
     CONF_PRESET,
+    CONF_REQUEST_DELAY,
     CONF_SCAN_INTERVAL,
     CONF_SLAVE,
     DEFAULT_PORT,
+    DEFAULT_REQUEST_DELAY,
     DEFAULT_SCAN_INTERVAL,
     DEFAULT_SLAVE,
     DOMAIN,
@@ -226,7 +228,14 @@ class HargassnerOptionsFlow(OptionsFlow):
 
     def __init__(self) -> None:
         self._scan_interval = DEFAULT_SCAN_INTERVAL
+        self._request_delay = DEFAULT_REQUEST_DELAY
         self._categories: list[str] = []
+
+    def _base_options(self) -> dict[str, Any]:
+        return {
+            CONF_SCAN_INTERVAL: self._scan_interval,
+            CONF_REQUEST_DELAY: self._request_delay,
+        }
 
     async def async_step_init(
         self, user_input: dict[str, Any] | None = None
@@ -234,12 +243,12 @@ class HargassnerOptionsFlow(OptionsFlow):
         opts = self.config_entry.options
         if user_input is not None:
             self._scan_interval = user_input[CONF_SCAN_INTERVAL]
+            self._request_delay = user_input[CONF_REQUEST_DELAY]
             preset = user_input[CONF_PRESET]
             if preset == PRESET_CUSTOM:
                 return await self.async_step_categories()
             return self.async_create_entry(
-                title="",
-                data={CONF_PRESET: preset, CONF_SCAN_INTERVAL: self._scan_interval},
+                title="", data={CONF_PRESET: preset, **self._base_options()}
             )
 
         schema = vol.Schema(
@@ -251,6 +260,10 @@ class HargassnerOptionsFlow(OptionsFlow):
                     CONF_SCAN_INTERVAL,
                     default=opts.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL),
                 ): vol.All(int, vol.Range(min=5, max=3600)),
+                vol.Required(
+                    CONF_REQUEST_DELAY,
+                    default=opts.get(CONF_REQUEST_DELAY, DEFAULT_REQUEST_DELAY),
+                ): vol.All(int, vol.Range(min=0, max=1000)),
             }
         )
         return self.async_show_form(step_id="init", data_schema=schema)
@@ -268,9 +281,9 @@ class HargassnerOptionsFlow(OptionsFlow):
                 title="",
                 data={
                     CONF_PRESET: PRESET_CUSTOM,
-                    CONF_SCAN_INTERVAL: self._scan_interval,
                     CONF_ENABLED_CATEGORIES: self._categories,
                     CONF_EXCLUDED_KEYS: [],
+                    **self._base_options(),
                 },
             )
 
@@ -296,9 +309,9 @@ class HargassnerOptionsFlow(OptionsFlow):
                 title="",
                 data={
                     CONF_PRESET: PRESET_CUSTOM,
-                    CONF_SCAN_INTERVAL: self._scan_interval,
                     CONF_ENABLED_CATEGORIES: self._categories,
                     CONF_EXCLUDED_KEYS: excluded,
+                    **self._base_options(),
                 },
             )
 

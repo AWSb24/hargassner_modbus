@@ -13,8 +13,10 @@ from .const import (
     CONF_HOST,
     CONF_PORT,
     CONF_PRESET,
+    CONF_REQUEST_DELAY,
     CONF_SCAN_INTERVAL,
     CONF_SLAVE,
+    DEFAULT_REQUEST_DELAY,
     DEFAULT_SCAN_INTERVAL,
     DEFAULT_SLAVE,
     DOMAIN,
@@ -58,6 +60,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     slave = entry.data.get(CONF_SLAVE, DEFAULT_SLAVE)
 
     scan_interval = entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
+    request_delay = entry.options.get(CONF_REQUEST_DELAY, DEFAULT_REQUEST_DELAY) / 1000
     registers, gate_filter = await hass.async_add_executor_job(
         select_registers, entry.options
     )
@@ -65,7 +68,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     hub = HargassnerHub(host, port, slave)
 
     coordinator = HargassnerCoordinator(
-        hass, entry, hub, registers, scan_interval, gate_filter
+        hass, entry, hub, registers, scan_interval, gate_filter, request_delay
     )
     # First refresh populates gate_active, which decides which entities to create.
     await coordinator.async_config_entry_first_refresh()
